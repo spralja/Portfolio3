@@ -1,55 +1,28 @@
-import java.io.File;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Random;
-
-import static java.sql.DriverManager.getConnection;
-
-public  class Student {
-    private static final Random rand = new Random();
-    private static final int RAND = 1000000;
-
-    public static boolean registerNewStudent(String name, String address) {
-        String sql = "INSERT INTO Students (Name, Address, StudentNumber) " +
-                "VALUES (?, ?, ?);";
-        int StudentNumber = getNewRandomStudentNumber();
-
-        return false;
+public class Student {
+    private String name;
+    private String address;
+    public Student(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
 
-    private static int getNewRandomStudentNumber() {
-        int randomStudentNumber = rand.nextInt(RAND);
-        while(true) {
-            Connection conn = null;
-            ResultSet rs = null;
-            String sql = "SELECT StudentNumber " +
-                    "FROM Students " +
-                    "WHERE StudentNumber = " + randomStudentNumber + ";";
+    public String getName() {
+        return this.name;
+    }
 
-            try {
-                String url = "jdbc:sqlite:database.db";
-                conn = getConnection(url);
-                Statement statement = conn.createStatement();
-                rs = statement.executeQuery(sql);
-                if(!rs.next()) break;
-            } catch(SQLException e) {
-                e.printStackTrace();
-                return -1;
-            } finally {
-                if (conn != null) {
-                    try {
-                        conn.close();
-                    } catch(SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    public String getAddress() {
+        return this.address;
+    }
 
-            randomStudentNumber = rand.nextInt(RAND);
-        }
+    public String changeAddress(String address) {
+        final String OLD_ADDRESS = this.address;
+        this.address = address;
+        return OLD_ADDRESS;
+    }
 
-        return randomStudentNumber;
+    public String changeName(String name) {
+        final String OLD_NAME = this.name;
+        this.name = name;
+        return OLD_NAME;
     }
 }
