@@ -1,9 +1,19 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Student {
     private String name;
     private String address;
-    public Student(String name, String address) {
-        this.name = name;
-        this.address = address;
+    private int ID;
+
+    public Student(ResultSet rs) {
+        try {
+            this.name = rs.getString(1);
+            this.address = rs.getString(2);
+            this.ID = rs.getInt(3);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getName() {
@@ -14,15 +24,7 @@ public class Student {
         return this.address;
     }
 
-    public String changeAddress(String address) {
-        final String OLD_ADDRESS = this.address;
-        this.address = address;
-        return OLD_ADDRESS;
-    }
-
-    public String changeName(String name) {
-        final String OLD_NAME = this.name;
-        this.name = name;
-        return OLD_NAME;
+    public int getID() {
+        return this.ID;
     }
 }
