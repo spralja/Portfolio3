@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS Students;
 CREATE TABLE IF NOT EXISTS Students (
     Name TEXT,
     Address TEXT,
-    StudentNumber INTEGER,
-    PRIMARY KEY (StudentNumber)
+    ID INTEGER,
+    PRIMARY KEY (ID)
 );
 
 DROP TABLE IF EXISTS Courses;
@@ -12,22 +12,24 @@ CREATE TABLE IF NOT EXISTS Courses (
     Year INTEGER,
     Semester TEXT,
     Teacher TEXT,
-    PRIMARY KEY (Name, Year, Semester)
+    ID INTEGER,
+    PRIMARY KEY (ID)
 );
 
 DROP TABLE IF EXISTS Registrations;
 CREATE TABLE IF NOT EXISTS Registrations (
-    StudentStudentNumber INTEGER,
+    StudentID INTEGER,
+    CourseID INTEGER,
     CourseName TEXT,
     CourseYear INTEGER,
     CourseSemester TEXT,
     Grade INTEGER,
-    FOREIGN KEY (StudentStudentNumber)
-        REFERENCES Students (StudentNumber)
+    FOREIGN KEY (StudentID)
+        REFERENCES Students (ID)
         ON UPDATE CASCADE ON DELETE CASCADE,
 
-    FOREIGN KEY (CourseName, CourseYear, CourseSemester)
-        REFERENCES Courses (Name, Year, Semester)
+    FOREIGN KEY (CourseID)
+        REFERENCES Courses (ID)
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
