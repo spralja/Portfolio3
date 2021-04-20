@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Registrations (
     CourseName TEXT NOT NULL,
     CourseYear INTEGER NOT NULL,
     CourseSemester TEXT NOT NULL,
-    Grade INTEGER,
+    Grade FLOAT,
     FOREIGN KEY (StudentName, StudentAddress)
         REFERENCES Students (Name, Address)
         ON UPDATE CASCADE ON DELETE CASCADE,
