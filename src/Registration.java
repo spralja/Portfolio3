@@ -5,9 +5,10 @@ public class Registration {
     private Integer courseYear;
     private String courseSemester;
     private Integer grade;
-
+    private String teacher;
     public Registration(String studentName, String studentAddress, String courseName,
-                        Integer courseYear, String courseSemester, Integer grade) {
+                        Integer courseYear, String courseSemester, Integer grade,
+                        String teacher) {
 
         this.studentName = studentName;
         this.studentAddress = studentAddress;
@@ -15,6 +16,7 @@ public class Registration {
         this.courseYear = courseYear;
         this.courseSemester = courseSemester;
         this.grade = grade;
+        this.teacher = teacher;
     }
 
     @Override
@@ -38,6 +40,9 @@ public class Registration {
         string.append(",\n");
         string.append("grade: ");
         string.append(grade);
+        string.append(",\n");
+        string.append("teacher: ");
+        string.append(teacher);
         string.append(",\n");
         string.append("}");
         return string.toString();
