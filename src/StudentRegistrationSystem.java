@@ -17,10 +17,15 @@ public  class StudentRegistrationSystem {
                                                                    String studentAddress) {
 
         ArrayList< Registration > registrations = new ArrayList<>();
-        String sql = "SELECT StudentName, StudentAddress, CourseName, CourseYear, " +
-                "CourseSemester, Grade " +
+        String sql = "SELECT Registrations.StudentName, Registrations.StudentAddress, " +
+                "Registrations.CourseName, Registrations.CourseYear, " +
+                "Registrations.CourseSemester, Registrations.Grade, Courses.Teacher " +
                 "FROM Registrations " +
-                "WHERE StudentName = ? AND StudentAddress = ?;";
+                "INNER JOIN Courses " +
+                "ON Registrations.CourseName = Courses.Name AND " +
+                "Registrations.CourseYear = Courses.Year AND " +
+                "Registrations.CourseSemester = Courses.Semester " +
+                "WHERE Registrations.StudentName = ? AND Registrations.StudentAddress = ?;";
 
         Connection conn = null;
 
@@ -35,7 +40,7 @@ public  class StudentRegistrationSystem {
                 registrations.add(new Registration(
                         rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getInt(6)
+                        rs.getString(5), rs.getInt(6), rs.getString(7)
                 ));
 
             }
@@ -52,7 +57,7 @@ public  class StudentRegistrationSystem {
     public Float getMeanGradeOfStudent(String studentName, String studentAddress) {
         Float meanGrade = null;
         String sql = "SELECT AVG(Grade) FROM Registrations " +
-                "WHERE StudentName = ? AND StudentAddress = ?";
+                "WHERE StudentName = ? AND StudentAddress = ?;";
 
         Connection conn = null;
 
