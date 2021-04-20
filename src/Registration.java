@@ -5,11 +5,9 @@ public class Registration {
     private Integer courseYear;
     private String courseSemester;
     private Integer grade;
-    private Integer meanGrade;
 
     public Registration(String studentName, String studentAddress, String courseName,
-                        Integer courseYear, String courseSemester, Integer grade,
-                        Integer meanGrade) {
+                        Integer courseYear, String courseSemester, Integer grade) {
 
         this.studentName = studentName;
         this.studentAddress = studentAddress;
@@ -17,7 +15,6 @@ public class Registration {
         this.courseYear = courseYear;
         this.courseSemester = courseSemester;
         this.grade = grade;
-        this.meanGrade = meanGrade;
     }
 
     @Override
@@ -41,9 +38,6 @@ public class Registration {
         string.append(",\n");
         string.append("grade: ");
         string.append(grade);
-        string.append(",\n");
-        string.append("meanGrade: ");
-        string.append(meanGrade);
         string.append(",\n");
         string.append("}");
         return string.toString();
