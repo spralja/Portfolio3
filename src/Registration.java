@@ -1,6 +1,3 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class Registration {
     private String studentName;
     private String studentAddress;
