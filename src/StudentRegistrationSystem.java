@@ -35,10 +35,9 @@ public  class StudentRegistrationSystem {
                 registrations.add(new Registration(
                         rs.getString(1), rs.getString(2),
                         rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getInt(6),
-                        getMeanGradeOfCourse(rs.getString(3), rs.getInt(4),
-                                rs.getString(5))
+                        rs.getString(5), rs.getInt(6)
                 ));
+
             }
 
         } catch(SQLException e) {
@@ -50,8 +49,34 @@ public  class StudentRegistrationSystem {
         return registrations;
     }
 
-    public Integer getMeanGradeOfCourse(String courseName, int courseYear, String courseSemester) {
-        Integer meanGrade = null;
+    public Float getMeanGradeOfStudent(String studentName, String studentAddress) {
+        Float meanGrade = null;
+        String sql = "SELECT AVG(Grade) FROM Registrations " +
+                "WHERE StudentName = ? AND StudentAddress = ?";
+
+        Connection conn = null;
+
+        try {
+            conn = getConnection(url);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, studentName);
+            pst.setString(2, studentAddress);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()) {
+                meanGrade = rs.getFloat(1);
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn);
+        }
+
+        return meanGrade;
+    }
+
+    public Float getMeanGradeOfCourse(String courseName, int courseYear, String courseSemester) {
+        Float meanGrade = null;
         String sql = "SELECT AVG(Grade) FROM Registrations " +
                 "WHERE CourseName = ? AND CourseYear = ? AND CourseSemester = ?;";
 
@@ -65,7 +90,7 @@ public  class StudentRegistrationSystem {
             pst.setString(3, courseSemester);
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
-                meanGrade = rs.getInt(1);
+                meanGrade = rs.getFloat(1);
             }
         } catch(SQLException e) {
             e.printStackTrace();
