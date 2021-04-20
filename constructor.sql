@@ -42,7 +42,7 @@ INSERT INTO Courses (Name, Year, Semester, Teacher)
 VALUES ('ES1', 2019, 'autumn', 'Ebbe');
 
 
-/* Aisha Linclon */
+/* Aisha Lincoln */
 INSERT INTO Students (Name, Address)
 VALUES ('Aisha Lincoln', '4800 Nykøbing F Denmark');
 
