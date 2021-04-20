@@ -1,3 +1,5 @@
+import com.sun.source.doctree.DeprecatedTree;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -104,6 +106,53 @@ public  class StudentRegistrationSystem {
         }
 
         return meanGrade;
+    }
+
+    public ArrayList< Student > getStudentList() {
+        ArrayList< Student > students = new ArrayList<>();
+        String sql = "SELECT Name, Address " +
+                "FROM Students";
+
+        Connection conn = null;
+
+        try {
+            conn = getConnection(url);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()) {
+                students.add(new Student(rs.getString(1), rs.getString(2)));
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn);
+        }
+
+        return students;
+    }
+
+    public ArrayList< Course > getCourseList() {
+        ArrayList< Course > courses = new ArrayList<>();
+        String sql = "SELECT Name, Year, Semester, Teacher FROM Courses";
+
+        Connection conn = null;
+
+        try {
+            conn = getConnection(url);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()) {
+                courses.add(new Course(rs.getString(1), rs.getInt(2),
+                        rs.getString(3), rs.getString(4)));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection(conn);
+        }
+
+        return courses;
     }
 
     private void closeConnection(Connection conn) {
