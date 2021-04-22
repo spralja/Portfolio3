@@ -36,8 +36,7 @@ public  class Model {
             while(rs.next()) registrations.add(new Registration(rs));
 
         } catch(SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
+            handleException(e);
         } finally {
             closeConnection(conn);
         }
@@ -62,7 +61,7 @@ public  class Model {
             }
 
         } catch(SQLException e) {
-            e.printStackTrace();
+            handleException(e);
         } finally {
             closeConnection(conn);
         }
