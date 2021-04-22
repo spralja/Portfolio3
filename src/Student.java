@@ -23,4 +23,9 @@ public class Student {
     public Integer getPIN() {
         return this.PIN;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s", name, address);
+    }
 }
