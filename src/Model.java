@@ -1,21 +1,19 @@
-import com.sun.source.doctree.DeprecatedTree;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static java.sql.DriverManager.getConnection;
 
 public  class Model {
-    private static final Random rand = new Random();
-    private static final Integer RAND = 1000000;
     private String url;
 
     public Model(String url) {
         this.url = url;
     }
 
-    public ArrayList< Registration > getRegisteredCoursesOfStudent(Integer PIN) {
+    public ArrayList< Registration > getRegistrationsOfStudentArrayList(Integer PIN) {
 
         ArrayList< Registration > registrations = new ArrayList<>();
         String sql = "SELECT Registrations.PIN, " +
@@ -90,7 +88,7 @@ public  class Model {
                 meanGrade = rs.getFloat(1);
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+           handleException(e);
         } finally {
             closeConnection(conn);
         }
