@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Main extends Application {
     private static final String URL = "jdbc:sqlite:database.db";
-    private static final Integer SCENE_WIDTH = 600;
+    private static final Integer SCENE_WIDTH = 475;
     private static final Integer SCENE_HEIGHT = 475;
 
     public static void main(String[] args) {
