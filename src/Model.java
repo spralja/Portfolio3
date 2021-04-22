@@ -6,20 +6,19 @@ import java.util.Random;
 
 import static java.sql.DriverManager.getConnection;
 
-public  class StudentRegistrationSystem {
+public  class Model {
     private static final Random rand = new Random();
     private static final Integer RAND = 1000000;
     private String url;
 
-    public StudentRegistrationSystem(String url) {
+    public Model(String url) {
         this.url = url;
     }
 
-    public ArrayList< Registration > getRegisteredCoursesOfStudent(String studentName,
-                                                                   String studentAddress) {
+    public ArrayList< Registration > getRegisteredCoursesOfStudent(Integer PIN) {
 
         ArrayList< Registration > registrations = new ArrayList<>();
-        String sql = "SELECT Registrations.StudentName, Registrations.StudentAddress, " +
+        String sql = "SELECT Registrations.PIN, " +
                 "Registrations.CourseName, Registrations.CourseYear, " +
                 "Registrations.CourseSemester, Registrations.Grade, Courses.Teacher " +
                 "FROM Registrations " +
@@ -27,28 +26,20 @@ public  class StudentRegistrationSystem {
                 "ON Registrations.CourseName = Courses.Name AND " +
                 "Registrations.CourseYear = Courses.Year AND " +
                 "Registrations.CourseSemester = Courses.Semester " +
-                "WHERE Registrations.StudentName = ? AND Registrations.StudentAddress = ?;";
+                "WHERE Registrations.PIN = ?;";
 
         Connection conn = null;
 
         try {
             conn = getConnection(url);
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, studentName);
-            pst.setString(2, studentAddress);
+            pst.setInt(1, PIN);
             ResultSet rs = pst.executeQuery();
-            int index = 0;
-            while(rs.next()) {
-                registrations.add(new Registration(
-                        rs.getString(1), rs.getString(2),
-                        rs.getString(3), rs.getInt(4),
-                        rs.getString(5), rs.getInt(6), rs.getString(7)
-                ));
-
-            }
+            while(rs.next()) registrations.add(new Registration(rs));
 
         } catch(SQLException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             closeConnection(conn);
         }
@@ -56,18 +47,17 @@ public  class StudentRegistrationSystem {
         return registrations;
     }
 
-    public Float getMeanGradeOfStudent(String studentName, String studentAddress) {
+    public Float getMeanGradeOfStudent(Integer PIN) {
         Float meanGrade = null;
         String sql = "SELECT AVG(Grade) FROM Registrations " +
-                "WHERE StudentName = ? AND StudentAddress = ?;";
+                "WHERE PIN = ?;";
 
         Connection conn = null;
 
         try {
             conn = getConnection(url);
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, studentName);
-            pst.setString(2, studentAddress);
+            pst.setInt(1, PIN);
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
                 meanGrade = rs.getFloat(1);
@@ -108,9 +98,9 @@ public  class StudentRegistrationSystem {
         return meanGrade;
     }
 
-    public ArrayList< Student > getStudentList() {
+    public ArrayList< Student > getStudentArrayList() {
         ArrayList< Student > students = new ArrayList<>();
-        String sql = "SELECT Name, Address " +
+        String sql = "SELECT PIN, Name, Address " +
                 "FROM Students";
 
         Connection conn = null;
@@ -120,11 +110,11 @@ public  class StudentRegistrationSystem {
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
-                students.add(new Student(rs.getString(1), rs.getString(2)));
+                students.add(new Student(rs));
             }
 
         } catch(SQLException e) {
-            e.printStackTrace();
+            handleException(e);
         } finally {
             closeConnection(conn);
         }
@@ -132,7 +122,7 @@ public  class StudentRegistrationSystem {
         return students;
     }
 
-    public ArrayList< Course > getCourseList() {
+    public ArrayList< Course > getCourseArrayList() {
         ArrayList< Course > courses = new ArrayList<>();
         String sql = "SELECT Name, Year, Semester, Teacher FROM Courses";
 
@@ -143,11 +133,11 @@ public  class StudentRegistrationSystem {
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
-                courses.add(new Course(rs.getString(1), rs.getInt(2),
-                        rs.getString(3), rs.getString(4)));
+                courses.add(new Course(rs));
             }
+
         } catch(SQLException e) {
-            e.printStackTrace();
+            handleException(e);
         } finally {
             closeConnection(conn);
         }
@@ -162,5 +152,10 @@ public  class StudentRegistrationSystem {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleException(Exception e) {
+        e.printStackTrace();
+        System.out.println(e.getMessage());
     }
 }
