@@ -1,8 +1,26 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Student {
+
+    private Integer PIN;
     private String name;
     private String address;
-    public Student(String name, String address) {
-        this.name = name;
-        this.address = address;
+    public Student(ResultSet rs) throws SQLException {
+        PIN = rs.getInt(1);
+        name = rs.getString(2);
+        address = rs.getString(3);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public Integer getPIN() {
+        return this.PIN;
     }
 }
