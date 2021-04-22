@@ -69,9 +69,17 @@ public  class Model {
         return meanGrade;
     }
 
-    public Float getMeanGradeOfCourse(String courseName, int courseYear, String courseSemester) {
-        Float meanGrade = null;
-        String sql = "SELECT AVG(Grade) FROM Registrations " +
+    public CourseWithMeanGrade getCourseWithMeanGrade(
+            Course course
+    ) {
+        CourseWithMeanGrade courseWithMeanGrade = null;
+        String sql = "SELECT Courses.Name, Courses.Year, Courses.Semester, Courses.Teacher, " +
+                "AVG(Registrations.Grade) " +
+                "FROM Courses " +
+                "INNER JOIN Registrations " +
+                "ON Registrations.CourseName = Registrations.CourseName AND " +
+                "Courses.Year = Registrations.CourseYear AND " +
+                "Courses.Semester = Registrations.CourseSemester " +
                 "WHERE CourseName = ? AND CourseYear = ? AND CourseSemester = ?;";
 
         Connection conn = null;
@@ -79,12 +87,12 @@ public  class Model {
         try {
             conn = getConnection(url);
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, courseName);
-            pst.setInt(2, courseYear);
-            pst.setString(3, courseSemester);
+            pst.setString(1, course.getName());
+            pst.setInt(2, course.getYear());
+            pst.setString(3, course.getSemester());
             ResultSet rs = pst.executeQuery();
             while(rs.next()) {
-                meanGrade = rs.getFloat(1);
+                courseWithMeanGrade = new CourseWithMeanGrade(rs);
             }
         } catch(SQLException e) {
            handleException(e);
@@ -92,7 +100,7 @@ public  class Model {
             closeConnection(conn);
         }
 
-        return meanGrade;
+        return courseWithMeanGrade;
     }
 
     public ArrayList< Student > getStudentArrayList() {
