@@ -1,50 +1,44 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Registration {
-    private String studentName;
-    private String studentAddress;
+    private Integer PIN;
     private String courseName;
     private Integer courseYear;
     private String courseSemester;
     private Integer grade;
-    private String teacher;
-    public Registration(String studentName, String studentAddress, String courseName,
-                        Integer courseYear, String courseSemester, Integer grade,
-                        String teacher) {
+    private String courseTeacher;
 
-        this.studentName = studentName;
-        this.studentAddress = studentAddress;
-        this.courseName = courseName;
-        this.courseYear = courseYear;
-        this.courseSemester = courseSemester;
-        this.grade = grade;
-        this.teacher = teacher;
+    public Registration(ResultSet rs) throws SQLException{
+            PIN = rs.getInt(1);
+            courseName = rs.getString(2);
+            courseYear = rs.getInt(3);
+            courseSemester = rs.getString(4);
+            grade = rs.getInt(5);
+            courseTeacher = rs.getString(6);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder();
-        string.append("{\n");
-        string.append("studentName: ");
-        string.append(this.studentName);
-        string.append(",\n");
-        string.append("studentAddress: ");
-        string.append(this.studentAddress);
-        string.append(",\n");
-        string.append("courseName: ");
-        string.append(courseName);
-        string.append(",\n");
-        string.append("courseYear: ");
-        string.append(courseYear);
-        string.append(",\n");
-        string.append("courseSemester: ");
-        string.append(courseSemester);
-        string.append(",\n");
-        string.append("grade: ");
-        string.append(grade);
-        string.append(",\n");
-        string.append("teacher: ");
-        string.append(teacher);
-        string.append(",\n");
-        string.append("}");
-        return string.toString();
+    public Integer getPIN() {
+        return PIN;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public Integer getCourseYear() {
+        return courseYear;
+    }
+
+    public String getCourseSemester() {
+        return courseSemester;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public String getCourseTeacher() {
+        return courseTeacher;
     }
 }
