@@ -6,7 +6,7 @@ public class Registration {
     private String courseName;
     private Integer courseYear;
     private String courseSemester;
-    private Float grade;
+    private String grade;
     private String courseTeacher;
 
     public Registration(ResultSet rs) throws SQLException{
@@ -14,7 +14,7 @@ public class Registration {
             courseName = rs.getString(2);
             courseYear = rs.getInt(3);
             courseSemester = rs.getString(4);
-            grade = rs.getFloat(5);
+            grade = rs.getString(5);
             courseTeacher = rs.getString(6);
     }
 
@@ -36,7 +36,7 @@ public class Registration {
         return courseSemester;
     }
 
-    public Float getGrade() {
+    public String getGrade() {
         return grade;
     }
 
@@ -44,7 +44,7 @@ public class Registration {
         return courseTeacher;
     }
 
-    public static Registration getMEAN(Float grade) {
+    public static Registration getMEAN(String grade) {
         Registration MEAN = new Registration();
         MEAN.grade = grade;
         MEAN.courseTeacher = "mean";
