@@ -27,6 +27,7 @@ hs_err_pid*
 /.idea/workspace.xml
 /.idea/misc.xml
 /.idea/libraries/
+
 portfolio3.iml
 # db
 /.idea/dataSources.local.xml
