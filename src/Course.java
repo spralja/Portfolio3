@@ -2,12 +2,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Course {
-    private String name;
-    private Integer year;
-    private Integer yearShort;
-    private String semester;
-    private Character semesterShort;
-    private String teacher;
+    protected String name;
+    protected Integer year;
+    protected Integer yearShort;
+    protected String semester;
+    protected Character semesterShort;
+    protected String teacher;
     public Course(ResultSet rs) throws SQLException {
         this.name = rs.getString(1);
         this.year = rs.getInt(2);
