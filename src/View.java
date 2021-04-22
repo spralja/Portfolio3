@@ -1,10 +1,8 @@
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 public class View {
@@ -20,7 +18,7 @@ public class View {
     Button showCourseInfoButton = new Button("Show Course Info");
     Button showStudentInfoButton = new Button("Show Student Info");
 
-    TextArea info = new TextArea();
+    TableView infoTable = new TableView();
 
     public View(Controller control) {
         this.control = control;
@@ -42,6 +40,9 @@ public class View {
 
         startView.add(showCourseInfoButton, 0, 5);
         startView.add(showStudentInfoButton, 10, 5);
+
+        startView.add(infoTable, 0, 6, 30, 16);
+        infoTable.setPlaceholder(new Label(""));
     }
 
     public Parent asParent() {
