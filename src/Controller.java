@@ -30,6 +30,16 @@ public class Controller {
                 view.infoTable,
                 model.getCourseWithMeanGrade(view.courseComboBox.getValue())
         ));
+
+        view.gradeButton.setOnAction(e -> handlerGrading(
+                view.studentComboBox.getValue(),
+                view.courseComboBox.getValue()
+        ));
+    }
+
+    private void handlerGrading(Student student, Course course) {
+        String grade = view.gradeField.getText();
+        model.grade(student, course, grade);
     }
 
     public View getView() {
