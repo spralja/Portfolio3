@@ -14,6 +14,8 @@ public class View {
 
     Label selectCourseLabel = new Label("Select Course:");
     ComboBox< Course > courseComboBox = new ComboBox<>();
+    Button gradeButton = new Button("Grade");
+    TextField gradeField = new TextField("");
 
     Button showCourseInfoButton = new Button("Show Course Info");
     Button showStudentInfoButton = new Button("Show Student Info");
@@ -35,6 +37,8 @@ public class View {
 
         startView.add(selectCourseLabel, 0, 1);
         startView.add(courseComboBox, 10, 1);
+        startView.add(gradeButton, 15, 1, 20, 1);
+        startView.add(gradeField, 35, 1, 40, 1);
         courseComboBox.setItems(control.getCourses());
         courseComboBox.getSelectionModel().selectFirst();
 
