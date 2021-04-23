@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static java.sql.DriverManager.getConnection;
 
 public  class Model {
-    private String url;
+    private final String url;
 
     public Model(String url) {
         this.url = url;
@@ -77,7 +77,7 @@ public  class Model {
                 "AVG(Registrations.Grade) " +
                 "FROM Courses " +
                 "INNER JOIN Registrations " +
-                "ON Registrations.CourseName = Registrations.CourseName AND " +
+                "ON Courses.Name = Registrations.CourseName AND " +
                 "Courses.Year = Registrations.CourseYear AND " +
                 "Courses.Semester = Registrations.CourseSemester " +
                 "WHERE CourseName = ? AND CourseYear = ? AND CourseSemester = ?;";
