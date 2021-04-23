@@ -40,6 +40,11 @@ public class Controller {
     private void handlerGrading(Student student, Course course) {
         String grade = view.gradeField.getText();
         model.grade(student, course, grade);
+        handlerPrintStudentInfo(
+                view.infoTable,
+                model.getRegistrationsOfStudentArrayList(student.getPIN()),
+                model.getMeanGradeOfStudent(student.getPIN())
+        );
     }
 
     public View getView() {
