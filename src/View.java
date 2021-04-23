@@ -1,12 +1,10 @@
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 
 public class View {
-    private Controller control;
+    private final Controller control;
     GridPane startView;
 
     Label selectStudentLabel = new Label("Select Student:");

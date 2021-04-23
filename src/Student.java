@@ -3,9 +3,9 @@ import java.sql.SQLException;
 
 public class Student {
 
-    private Integer PIN;
-    private String name;
-    private String address;
+    private final Integer PIN;
+    private final String name;
+    private final String address;
     public Student(ResultSet rs) throws SQLException {
         PIN = rs.getInt(1);
         name = rs.getString(2);
