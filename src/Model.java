@@ -163,4 +163,68 @@ public  class Model {
         e.printStackTrace();
         System.out.println(e.getMessage());
     }
+
+    public void grade(Student student, Course course, String grade) {
+        if(!isGrade(grade)) return;
+        if(isGraded(student, course)) return;
+        String sql = "UPDATE Registrations " +
+                "SET grade = ? " +
+                "WHERE PIN = ? AND CourseName = ? AND CourseYear = ? AND CourseSemester = ?;";
+
+        Connection conn = null;
+        try {
+            conn = getConnection(url);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, grade);
+            pst.setInt(2, student.getPIN());
+            pst.setString(3, course.getName());
+            pst.setInt(4, course.getYear());
+            pst.setString(5, course.getSemester());
+            pst.executeUpdate();
+        } catch(SQLException e) {
+            handleException(e);
+        } finally {
+            closeConnection(conn);
+        }
+    }
+
+    private boolean isGrade(String grade) {
+        if(grade.equals("12")) return true;
+        if(grade.equals("10")) return true;
+        if(grade.equals("7")) return true;
+        if(grade.equals("4")) return true;
+        if(grade.equals("02")) return true;
+        if(grade.equals("00")) return true;
+        if(grade.equals("-2")) return true;
+        if(grade.equals("-3")) return true;
+
+        return false;
+    }
+
+    public boolean isGraded(Student student, Course course) {
+        boolean isGraded = true;
+        String sql = "SELECT * FROM Registrations " +
+                "WHERE PIN = ? AND CourseName = ? AND CourseYear = ? AND " +
+                "CourseSemester = ? AND Grade IS NULL;";
+
+        Connection conn = null;
+        try {
+            conn = getConnection(url);
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, student.getPIN());
+            pst.setString(2, course.getName());
+            pst.setInt(3, course.getYear());
+            pst.setString(4, course.getSemester());
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()) {
+                isGraded = false;
+            }
+        } catch(SQLException e) {
+            handleException(e);
+        } finally {
+            closeConnection(conn);
+        }
+
+        return isGraded;
+    }
 }
