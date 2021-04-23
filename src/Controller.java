@@ -7,7 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 
 public class Controller {
-    private Model model;
+    private final Model model;
     private View view;
 
     public Controller(Model model) {
@@ -45,10 +45,6 @@ public class Controller {
                 model.getRegistrationsOfStudentArrayList(student.getPIN()),
                 model.getMeanGradeOfStudent(student.getPIN())
         );
-    }
-
-    public View getView() {
-        return view;
     }
 
     public ObservableList<Student> getStudents() {

@@ -2,8 +2,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
-
 public class Main extends Application {
     private static final String URL = "jdbc:sqlite:database.db";
     private static final Integer SCENE_WIDTH = 600;
@@ -14,7 +12,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         Model model = new Model(URL);
         Controller control = new Controller(model);
         View view = new View(control);
