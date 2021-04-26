@@ -2,7 +2,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Student {
-
     private final Integer PIN;
     private final String name;
     private final String address;
@@ -26,6 +25,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("%s, %s", name, address);
+        return String.format("%s, %s, %d", name, address, PIN);
     }
 }
