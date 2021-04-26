@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS Registrations (
 
     FOREIGN KEY (CourseName, CourseYear, CourseSemester)
         REFERENCES Courses (Name, Year, Semester)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    PRIMARY KEY (PIN, CourseName, CourseYear, CourseSemester)
 );
 
 
