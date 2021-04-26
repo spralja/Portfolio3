@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS Registrations (
     PRIMARY KEY (PIN, CourseName, CourseYear, CourseSemester)
 );
 
-
+/* Courses */
 INSERT INTO Courses (Name, Year, Semester, Teacher)
 VALUES ('SD', 2019, 'autumn', 'Line');
 
