@@ -14,6 +14,10 @@ public class Controller {
         this.model = model;
     }
 
+    /**
+     * Adds actions to all the buttons
+     * @param view the view with the buttons
+     */
     public void setView(View view) {
         this.view = view;
         view.showStudentInfoButton.setOnAction(
@@ -37,6 +41,11 @@ public class Controller {
         ));
     }
 
+    /**
+     * Handles grade button
+     * @param student the student to be graded
+     * @param course the course to be graded
+     */
     private void handlerGrading(Student student, Course course) {
         String grade = view.gradeField.getText();
         model.grade(student, course, grade);
@@ -47,14 +56,28 @@ public class Controller {
         );
     }
 
+    /**
+     * Gets a data list of the students from the model and converts it to a javafx list
+     * @return an ObservableList< Student > to be used by a comboBox
+     */
     public ObservableList<Student> getStudents() {
         return FXCollections.observableArrayList(model.getStudentArrayList());
     }
 
+    /**
+     * Gets a data list of students from the model and converts it to a javafx list
+     * @return an ObservableList< Course > to be used by a combobox
+     */
     public ObservableList<Course> getCourses() {
         return FXCollections.observableArrayList(model.getCourseArrayList());
     }
 
+    /**
+     * Handles Show Student Info button
+     * @param table the table from the view
+     * @param registrations the list of registered courses of the student
+     * @param meanGrade the mean grade of the student
+     */
     public void handlerPrintStudentInfo(
             TableView table,
             ArrayList< Registration > registrations,
@@ -86,6 +109,11 @@ public class Controller {
         table.getItems().add(Registration.getMEAN(meanGrade.toString()));
     }
 
+    /**
+     * Handles Show Course Info
+     * @param table the table from the view
+     * @param course the course with mean grade to be displayed
+     */
     public void handlerPrintCourseInfo(TableView table, CourseWithMeanGrade course) {
         table.getColumns().remove(0, table.getColumns().size());
         table.getItems().remove(0, table.getItems().size());

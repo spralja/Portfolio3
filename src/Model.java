@@ -13,6 +13,12 @@ public  class Model {
         this.url = url;
     }
 
+    /**
+     * In this method a query is sent to the database requesting all registrations of the student +
+     * the teacher of the registered courses
+     * @param PIN the Personal Identification Number of the student
+     * @return an list of course registrations of the student
+     */
     public ArrayList< Registration > getRegistrationsOfStudentArrayList(Integer PIN) {
 
         ArrayList< Registration > registrations = new ArrayList<>();
@@ -44,6 +50,12 @@ public  class Model {
         return registrations;
     }
 
+    /**
+     * In this method a query is sent to the database requesting the mean grade of all registrations
+     * of the student
+     * @param PIN the Personal Identification Number of the student
+     * @return the mean Grade of the graded courses of the student
+     */
     public Float getMeanGradeOfStudent(Integer PIN) {
         Float meanGrade = null;
         String sql = "SELECT AVG(Grade) FROM Registrations " +
@@ -69,6 +81,12 @@ public  class Model {
         return meanGrade;
     }
 
+    /**
+     * In this method a query is sent to the database requesting a specific course with
+     * an associated mean grade
+     * @param course the course to be requested
+     * @return the Course With Mean Grade
+     */
     public CourseWithMeanGrade getCourseWithMeanGrade(
             Course course
     ) {
@@ -103,6 +121,10 @@ public  class Model {
         return courseWithMeanGrade;
     }
 
+    /**
+     * In this method a query is sent to the database requesting all the students
+     * @return a list of all the students
+     */
     public ArrayList< Student > getStudentArrayList() {
         ArrayList< Student > students = new ArrayList<>();
         String sql = "SELECT PIN, Name, Address " +
@@ -127,6 +149,10 @@ public  class Model {
         return students;
     }
 
+    /**
+     * In this method a query is sent to the database requesting all the course
+     * @return a list of all the courses
+     */
     public ArrayList< Course > getCourseArrayList() {
         ArrayList< Course > courses = new ArrayList<>();
         String sql = "SELECT Name, Year, Semester, Teacher FROM Courses";
@@ -164,6 +190,13 @@ public  class Model {
         System.out.println(e.getMessage());
     }
 
+    /**
+     * In this method an update statement is sent to the database
+     * @param student the student whose grade we are inputting
+     * @param course the course we are grading (if the course is not registered to the student, or
+     *               the course is already graded the update statement is not sent)
+     * @param grade the grade we are inputting (if its not a grade the update statement is not sent)
+     */
     public void grade(Student student, Course course, String grade) {
         if(!isGrade(grade)) return;
         if(isGraded(student, course)) return;
@@ -201,7 +234,7 @@ public  class Model {
         return false;
     }
 
-    public boolean isGraded(Student student, Course course) {
+    private boolean isGraded(Student student, Course course) {
         boolean isGraded = true;
         String sql = "SELECT * FROM Registrations " +
                 "WHERE PIN = ? AND CourseName = ? AND CourseYear = ? AND " +

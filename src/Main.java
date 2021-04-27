@@ -11,6 +11,9 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+     * In the start method the Model, View and Control are initialised
+     */
     @Override
     public void start(Stage stage) {
         Model model = new Model(URL);
